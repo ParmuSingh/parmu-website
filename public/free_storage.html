@@ -1,0 +1,56 @@
+<html>
+
+    <!-- <p id = "upload_status_text">upload status: select file</p> -->
+    <progress value="0" max="100" id="uploader">0%</progress>
+    <input type="file" value="upload" id="fileButton" />
+
+    <!-- firebase init -->
+    <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
+    <script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyAIIf8VQCbLNNw7AEP44PDCK2NNtefj8NU",
+        authDomain: "parmu-website.firebaseapp.com",
+        databaseURL: "https://parmu-website.firebaseio.com",
+        projectId: "parmu-website",
+        storageBucket: "parmu-website.appspot.com",
+        messagingSenderId: "1073094651699"
+    };
+    firebase.initializeApp(config);
+    
+    var uploader = document.getElementById('uploader')
+    var fileButton = document.getElementById('fileButton')
+    // var uploadStatus = document.getElementById('upload_status_text')
+
+    fileButton.addEventListener('change', function(e){
+        // get file
+        var file = e.target.files[0];
+        //create storate ref
+        var storage_ref = firebase.storage().ref('free_cloud/' + file.name);
+        // upload file
+        var task = storage_ref.put(file);
+        // update progress bar
+        task.on('state_changed', function(snapshot){
+            var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            uploader.value = percentage
+        }),
+
+        function error(err){
+            // uploadStatus.value = "upload status: error occured: " + err
+        },
+
+        function complete(){
+            // uploadStatus.value = "upload status: Upload completed."
+        }
+
+    })
+
+    // const image = firebase.storage().ref('free_cloud').child('ciri_geralt.png')
+    // image.getDownloadURL().then((url)=>{this.setState({img: url})})
+
+    </script>
+    <!-- firebase init - end -->
+
+    
+
+</html>
