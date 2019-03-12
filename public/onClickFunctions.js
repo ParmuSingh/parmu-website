@@ -1,11 +1,7 @@
-<<<<<<< 887df8ba8b9bc8c529ce7b4eb782e9c1e9997a5f
-=======
-
 function free_storage(){
     window.location.href="./free_storage.html";
 }
 
->>>>>>> did some shit
 function some_cool_demos(){
     window.location.href="./cool_demos.html";
 }
